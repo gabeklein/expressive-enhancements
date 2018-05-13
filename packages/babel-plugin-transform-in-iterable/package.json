@@ -1,5 +1,5 @@
 {
-  "name": "babel-plugin-transform-in-interable",
+  "name": "babel-plugin-transform-in-iterable",
   "version": "1.1.0",
   "description": "Babel transform detects use of iterable with binary `in` expression and transform it to an indexOf check.",
   "main": "lib/index.js",
