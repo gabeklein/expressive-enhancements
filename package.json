@@ -1,0 +1,13 @@
+{
+	"name": "expressive-enhancements",
+	"version": "0.1.0",
+	"description": "A handful of transforms to make JS a little more convenient.",
+	"keywords": [
+		"expressive",
+		"syntax"
+	],
+	"license": "MIT",
+	"devDependencies": {
+		"lerna": "^2.8.0"
+	}
+}

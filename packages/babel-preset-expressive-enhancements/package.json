@@ -1,0 +1,23 @@
+{
+  "name": "babel-preset-expressive-enhancements",
+  "version": "1.0.0",
+  "description": "A handful of transforms to make JS a little more convenient.",
+  "main": "lib/index.js",
+  "scripts": {
+    "build": "babel ./src --out-dir ./lib",
+    "dev": "babel ./src --out-dir ./lib --source-maps --watch",
+    "prepare": "npm run build"
+  },
+  "keywords": [
+    "expressive",
+    "syntax"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "babel-plugin-transform-expressive-loops": "^1.1.1",
+    "babel-plugin-transform-expressive-in": "^1.0.0"
+  },
+  "devDependencies": {
+    "babel-preset-env": "^1.6.1"
+  }
+}
