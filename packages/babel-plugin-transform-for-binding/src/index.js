@@ -179,6 +179,10 @@ function ForInStatement(path){
     }
     
     const stats = extractStatements(path.get("body"))
+    
+    let _sourceReference = _source.type == "ObjectExpression" && _value
+        ? path.scope.generateUidIdentifier("_object")
+        : _source;
 
     if(_value || _struct){
         const initial_bindings = []
@@ -187,14 +191,14 @@ function ForInStatement(path){
             initial_bindings.push(
                 t.variableDeclarator(
                     _struct,
-                    t.memberExpression(_source, _key, true)
+                    t.memberExpression(_sourceReference, _key, true)
                 )
             )
         } else {
             initial_bindings.push(
                 t.variableDeclarator(
                     _value,
-                    t.memberExpression(_source, _key, true)    
+                    t.memberExpression(_sourceReference, _key, true)    
                 )
             )
             if(_struct) 
@@ -215,7 +219,7 @@ function ForInStatement(path){
         t.variableDeclaration(kind, [
             t.variableDeclarator(_key)
         ]),
-        _source,
+        _sourceReference,
         t.blockStatement(stats)
     )
 
@@ -224,9 +228,17 @@ function ForInStatement(path){
         path.node.expressive_setKey(_key)
     }
 
-    path.replaceWith(
-        loop
-    )
+    if(_source !== _sourceReference)
+        path.replaceWithMultiple([
+            t.variableDeclaration("const", [
+                t.variableDeclarator(_sourceReference, _source)
+            ]),
+            loop
+        ])
+    else 
+        path.replaceWith(
+            loop
+        )
 }
 
 function extractStatements(body) {
